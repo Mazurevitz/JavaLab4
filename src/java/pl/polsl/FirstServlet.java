@@ -52,19 +52,27 @@ public class FirstServlet extends HttpServlet {
 //                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "name is missing");
                 request.getRequestDispatcher("/ErrorServlet").forward(request,response);
             }
-            if (!age.matches("[0-9]"))
-            {
-                out.println("Non integer age!");
-//                response.sendRedirect("http://www.google.com");
+//            
+            try {
+                Integer.parseInt(age);
             }
-            else if(age != null && !age.isEmpty()) { 
-                out.println("age" + ": " + age + "<br>" );
+            catch (NumberFormatException e) {
+                request.setAttribute("msg", "Missing or empty paramater");
+                request.getRequestDispatcher("/ErrorServlet").include(request, response);
             }
-            else {
-                out.println("age is missing");
-                request.getRequestDispatcher("/ErrorServlet").forward(request,response);
-
-            }
+//            if (!age.matches("[0-9]"))
+//            {
+//                out.println("Non integer age!");
+////                response.sendRedirect("http://www.google.com");
+//            }
+//            else if(age != null && !age.isEmpty()) { 
+//                out.println("age" + ": " + age + "<br>" );
+//            }
+//            else {
+//                out.println("age is missing");
+//                request.getRequestDispatcher("/ErrorServlet").forward(request,response);
+//
+//            }
             
 
             /* TODO output your page here. You may use following sample code. */

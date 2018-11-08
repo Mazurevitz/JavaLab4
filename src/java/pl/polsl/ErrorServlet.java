@@ -7,9 +7,7 @@ package pl.polsl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,8 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author wojte
  */
-@WebServlet(name = "Test", urlPatterns = {"/First", "/FirstOne"})
-public class FirstServlet extends HttpServlet {
+public class ErrorServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,49 +31,7 @@ public class FirstServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-//            Enumeration<String> paramNames = request.getParameterNames();
-//            
-//            while(paramNames.hasMoreElements()){
-//                String name = paramNames.nextElement();
-//                out.println(name + ": " + request.getParameter(name) + "<br>" );
-//            }
-            String name = request.getParameter("name");
-            String age = request.getParameter("age");
-            
-            if(name != null && !name.isEmpty()) { 
-                out.println("name" + ": " + name + "<br>" );
-            }
-            else {
-                out.println("name is missing");
-                request.setAttribute("msg", "Missing parameters");
-//                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "name is missing");
-                request.getRequestDispatcher("/ErrorServlet").forward(request,response);
-            }
-            if (!age.matches("[0-9]"))
-            {
-                out.println("Non integer age!");
-//                response.sendRedirect("http://www.google.com");
-            }
-            else if(age != null && !age.isEmpty()) { 
-                out.println("age" + ": " + age + "<br>" );
-            }
-            else {
-                out.println("age is missing");
-                request.getRequestDispatcher("/ErrorServlet").forward(request,response);
-
-            }
-            
-
-            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet FirstServlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet FirstServlet at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
+            out.println("<p style=\"color:red;\">" + request.getAttribute("msg") + "</p>");
         }
     }
 
